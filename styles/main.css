@@ -1,0 +1,96 @@
+@import url(./variables.css);
+@import url(./theme.css);
+@import url(./dark-theme.css);
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: 14px;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+}
+
+main {
+  padding: 16px;
+}
+
+nav {
+  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+nav a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--elements-height);
+  text-decoration: none;
+  border-radius: var(--border-radius-medium);
+  color: var(--accent-primary-color);
+  text-align: center;
+  padding: 0 16px;
+}
+
+nav a.active {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}
+
+nav a:hover:not(.active) {
+  background-color: var(--accent-primary-color);
+  color: var(--bg-color);
+}
+
+nav a:not(:last-child) {
+  margin-right: 8px;
+}
+
+.flex-col,
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flex-col {
+  gap: 8px;
+}
+
+textarea,
+select,
+input {
+  background-color: var(--accent-bg-color);
+  font-size: 1.1rem;
+  color: var(--text-color);
+}
+
+textarea,
+select,
+input {
+  border: none;
+  border-radius: 8px;
+  height: var(--elements-height);
+  padding: 4px 16px;
+}
+
+textarea {
+  height: 150px;
+  padding: 16px;
+}
+
+button {
+  background-color: var(--accent-primary-color);
+  color: var(--bg-color);
+  height: var(--elements-height);
+  border: none;
+  border-radius: var(--border-radius-medium);
+  padding: 4px 16px;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}
