@@ -6,17 +6,92 @@
   <title>TODO</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/index.css">
-
+  <link rel="stylesheet" href="styles/theme.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
-  <script src="scripts/index.js" type="module"></script>
+
+  <script src="scripts/util.js" type="module" defer></script>
+  <!-- <script src="scripts/controllers/todo-controller.js" type="module" defer></script>
+  <script src="scripts/services/todo-service.js" type="module" defer></script>
+  <script src="scripts/services/data/storage.js" type="module" defer></script> -->
+  <script src="scripts/app.js" type="module" defer></script>
+
+  <script id="todo-template" type="text/x-handlebars-template">
+  		<div id="todos" class="flex-row">
+  			{{#each todos}}
+  				<div class="flex-col">
+  						<h2 class="flex-row space-between">{{title}} {{priority}}</h2>
+  						<p>
+  							{{description}}
+  						</p>
+              <span>Created:{{creationDate}}</span>
+              <span>Due to:{{dueDate}}</span>
+              <input disabled data-id="{{id}}" data-action="toggle-finish" type="checkbox"
+              {{#if finished}}checked{{/if}}>
+              <div class="flex-row">
+  							<button data-id="{{id}}" data-action="edit">Edit</button>
+  							<button data-id="{{id}}" data-action="delete">Delete</button>
+              </div>
+  				</div>
+  			{{/each}}
+  		</div>
+  	</script>
 
 </head>
 
 <body>
-  <h1>TODO</h1>
+  <header>
+    <h1>TODO</h1>
+    <nav>
+      <button id="add-todo">Add Todo</button>
+      <button id="theme-toggle">Toggle Theme</button>
+    </nav>
+  </header>
+  <main>
+    <div>
+      <!-- TODO: sortBy -->
+    </div>
+    <div id="todo-container"> </div>
 
+    <dialog id="dialog">
+      <form id="todo-form" method="dialog">
+        <h2 id="dialog-heading">Edit Todo</h2> <!-- TODO: set title based on add or create -->
+        <div class="flex-col">
+          <label for="title">Title:</label>
+          <input id="title" name="title" type="text" required>
+        </div>
+        <div class="flex-col">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description"></textarea>
+        </div>
+        <div class="flex-col">
+          <label for="dueDate">Due Date:</label>
+          <input id="dueDate" name="dueDate" type="date">
+        </div>
+        <div class="flex-col">
+          <label for="priority">Priority:</label>
+          <select name="priority" id="priority">
+            <option value="1">Critical</option>
+            <option value="2">High</option>
+            <option value="3">Normal</option>
+            <option value="4">Low</option>
+            <option value="5">Unimportant</option>
+          </select>
+        </div>
+        <div class="flex-col">
+          <label for="finished">Finished: </label>
+          <input id="finished" name="finished" type="checkbox">
+        </div>
+        <div class="flex-col">
+          <button id="save-todo"  type="submit">Save</button>
+          <button id="close-dialog" type="button">Close</button>
+        </div>
+      </form>
+    </dialog>
+  </main>
+  <footer>
+    <span id="todaysDate"></span>
+  </footer>
 </body>
 
 </html>
