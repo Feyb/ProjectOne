@@ -13,7 +13,7 @@
   <script src="scripts/app.js" type="module"></script>
 
   <script id="todo-template" type="text/x-handlebars-template">
-  		<div id="todos" class="flex-row">
+  		<div id="todos" class="flex-row wrap flex-basis-33">
   			{{#each todos}}
   				<div class="flex-col">
   						<h2 class="flex-row space-between">{{title}} {{priority}}</h2>
@@ -47,7 +47,7 @@
     <div>
       <!-- TODO: sortBy -->
     </div>
-    <div id="todo-container"> </div>
+    <div class="container" id="todo-container"> </div>
 
     <dialog id="dialog">
       <form id="todo-form" method="dialog">

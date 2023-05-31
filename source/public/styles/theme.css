@@ -54,6 +54,14 @@ form {
   justify-content: space-between;
 }
 
+.flex-basis-33 {
+  flex-basis: 33%;
+}
+
+.wrap {
+  flex-wrap: wrap
+}
+
 textarea,
 select,
 input {

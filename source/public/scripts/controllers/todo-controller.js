@@ -33,7 +33,6 @@ export default class TodoController {
     const todos = this.todoService.getTodos();
     const source = this.template.innerHTML;
     const template = Handlebars.compile(source);
-    console.log(todos);
     this.todoContainer.innerHTML = template({ todos });
   }
 
