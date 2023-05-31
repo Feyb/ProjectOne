@@ -1,5 +1,5 @@
-import { sortByAsc, sortByDesc } from '../util';
-import { todoStorage } from "./data/storage";
+import { sortByAsc, sortByDesc } from '../util.js';
+import { todoStorage } from "./data/storage.js";
 
 export default class TodoService {
   constructor() {

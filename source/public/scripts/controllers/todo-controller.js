@@ -1,4 +1,4 @@
-import { todoService } from "../services/todo-service";
+import { todoService } from "../services/todo-service.js";
 
 export default class TodoController {
   dialogId = "dialog";
@@ -9,30 +9,31 @@ export default class TodoController {
     this.template = document.querySelector("#todo-template");
   }
 
-  addEventListeners() {
-    document.addEventListener("click", event => {
-      if (event.target.dataset.action === 'edit') {
-        editListener();
-      }
-      if (event.target.dataset.action === 'add') {
+  // static addEventListeners() {
+  //   document.addEventListener("click", event => {
+  //     if (event.target.dataset.action === 'edit') {
+  //       editListener();
+  //     }
+  //     if (event.target.dataset.action === 'add') {
 
-      }
-      if (event.target.dataset.action === 'save') {
+  //     }
+  //     if (event.target.dataset.action === 'save') {
 
-      }
-      if (event.target.dataset.action === 'close') {
+  //     }
+  //     if (event.target.dataset.action === 'close') {
 
-      }
-      if (event.target.dataset.action === 'sortBy') {
+  //     }
+  //     if (event.target.dataset.action === 'sortBy') {
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 
   renderTodos() {
     const todos = this.todoService.getTodos();
     const source = this.template.innerHTML;
     const template = Handlebars.compile(source);
+    console.log(todos);
     this.todoContainer.innerHTML = template({ todos });
   }
 
@@ -42,7 +43,8 @@ export default class TodoController {
   }
 
   editListener() {
-    showDialog();
+    this.showDialog();
+    // TODO
   }
 }
 
