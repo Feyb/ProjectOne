@@ -13,22 +13,23 @@
   <script src="scripts/app.js" type="module"></script>
 
   <script id="todo-template" type="text/x-handlebars-template">
-  		<div id="todos" class="flex-row wrap flex-basis-33">
+  		<div id="todos" class="cards-grid">
   			{{#each todos}}
-  				<div class="flex-col">
-  						<h2 class="flex-row space-between">{{title}} {{priority}}</h2>
-  						<p>
-  							{{description}}
-  						</p>
-              <span>Created:{{creationDate}}</span>
-              <span>Due to:{{dueDate}}</span>
-              <input disabled data-id="{{id}}" data-action="toggle-finish" type="checkbox"
-              {{#if finished}}checked{{/if}}>
-              <div class="flex-row">
-  							<button data-id="{{id}}" data-action="edit">Edit</button>
-  							<button data-id="{{id}}" data-action="delete">Delete</button>
-              </div>
-  				</div>
+          <div class="card {{#if finished}}finished{{/if}}">
+            <div class="title"><h3>{{title}}</h3></div>
+            <div class="prio">{{priority}}</div>
+            <div class="desc"> {{description}} </div>
+            <div class="created"> Created at: </div>
+            <div class="created-value"> {{createdAt}} </div>
+            <div class="due"> Due to: </div>
+            <div class="due-value"> {{dueDate}} </div>
+            <div class="cbx">Finished: </div>
+            <div class="cbx-value"> <input data-id="{{id}}" data-action="finished" type="checkbox" {{#if finished}}checked{{/if}}> </div>
+            <div class="buttons">
+              <button data-id="{{id}}" data-action="edit">Edit</button>
+              <button data-id="{{id}}" data-action="delete">Delete</button>
+            </div>
+          </div>
   			{{/each}}
   		</div>
   	</script>
@@ -39,19 +40,32 @@
   <header>
     <h1>TODO</h1>
     <nav>
-      <button id="add-todo">Add Todo</button>
+      <button id="add-todo" data-action="add">Add Todo</button>
       <button id="theme-toggle">Toggle Theme</button>
+      <button id="delete-all" data-action="deleteAll">Delete Todos</button>
+      <select id="sort-select">
+        <!-- TODO: HOW DOES THIS WORK WITH HANDLEBARS FORM THE TODO PROPERTIES? -->
+        <!-- {{#each selectOptions}}
+        <option>{{@key}}</option>
+        {{/each}} -->
+        <option value="">sort by</option>
+        <option value="title">Title</option>
+        <option value="description">Description</option>
+        <option value="dueDate">Due Date</option>
+        <option value="createdAt">Created</option>
+        <option value="priority">Priority</option>
+        <option value="finished">Finished</option>
+      </select>
+
     </nav>
   </header>
   <main>
-    <div>
-      <!-- TODO: sortBy -->
-    </div>
     <div class="container" id="todo-container"> </div>
 
     <dialog id="dialog">
-      <form id="todo-form" method="dialog">
+      <form class="flex-col" id="todo-form" name="form" method="dialog">
         <h2 id="dialog-heading">Edit Todo</h2> <!-- TODO: set title based on add or create -->
+        <input id="id" name="id" type="text" hidden>
         <div class="flex-col">
           <label for="title">Title:</label>
           <input id="title" name="title" type="text" required>
@@ -62,7 +76,7 @@
         </div>
         <div class="flex-col">
           <label for="dueDate">Due Date:</label>
-          <input id="dueDate" name="dueDate" type="date">
+          <input id="dueDate" name="dueDate" type="date" required>
         </div>
         <div class="flex-col">
           <label for="priority">Priority:</label>
@@ -79,8 +93,8 @@
           <input id="finished" name="finished" type="checkbox">
         </div>
         <div class="flex-col">
-          <button id="save-todo" type="submit">Save</button>
-          <button id="close-dialog" type="button">Close</button>
+          <button id="save-todo" data-action="save" type="submit">Save</button>
+          <button id="close-dialog" data-action="close" type="button">Close</button>
         </div>
       </form>
     </dialog>

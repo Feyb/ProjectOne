@@ -1,5 +1,5 @@
 
-export class Storage {
+export default class Storage {
   constructor() {
     this.todos = JSON.parse(localStorage.getItem('todos')) ?? this.todoMocks;
   }
@@ -8,8 +8,16 @@ export class Storage {
     localStorage.setItem("todos", JSON.stringify(this.todos));
   }
 
+  wipeData() {
+    this.todos = [];
+    localStorage.removeItem("todos");
+  }
+
   addTodo(todo) {
-    this.todos.push(todo);
+    const lastElement = this.todos[this.todos.length - 1];
+    const add = todo;
+    add.id = lastElement.id + 1;
+    this.todos.push(add);
     this.save();
   }
 
@@ -230,6 +238,3 @@ export class Storage {
   ];
 
 }
-
-// why does this not work: export default class  Storage or export default Storage???
-export const todoStorage = new Storage();

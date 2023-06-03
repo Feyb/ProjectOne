@@ -1,9 +1,9 @@
-import { sortByAsc, sortByDesc } from '../util.js';
-import { todoStorage } from "./data/storage.js";
+import { sortByDate, sortByNumber, sortByString } from "../util.js";
+import Storage from "./data/storage.js";
 
 export default class TodoService {
   constructor() {
-    this.todoStorage = todoStorage;
+    this.todoStorage = new Storage();
   }
 
   getTodos() {
@@ -19,20 +19,24 @@ export default class TodoService {
   }
 
   deleteTodoById(id) {
-    this.todoStorage.deleteTodoById(id);
+    this.todoStorage.deleteById(id);
+  }
+
+  deleteAll() {
+    this.todoStorage.wipeData();
   }
 
   updateTodoById(id, updatedTodo) {
     const index = this.findTodoIndexById(id);
     if (index !== -1) {
       this.todoStorage.todos[index] = updatedTodo;
-      this.todoStorage.saveTodos();
+      this.todoStorage.save();
     }
   }
 
   updateAllTodos(updatedTodos) {
     this.todoStorage.todos = updatedTodos;
-    this.todoStorage.saveTodos();
+    this.todoStorage.save();
   }
 
   toggleFinished(todoId) {
@@ -55,12 +59,19 @@ export default class TodoService {
     );
   }
 
-  sortBy(property, type) {
-    if (type === 'asc') {
-      return this.todoStorage.todos.sort((a, b) => sortByAsc(a, b, property));
+  sortBy(property) {
+    switch (property) {
+      case 'title':
+      case 'description':
+        return this.todoStorage.todos.sort((a, b) => sortByString(a, b, property));
+      case 'dueDate':
+      case 'createdAt':
+        return this.todoStorage.todos.sort((a, b) => sortByDate(a, b, property));
+      case 'priority':
+      case 'finished':
+        return this.todoStorage.todos.sort((a, b) => sortByNumber(a, b, property));
+      default:
+        return this.todoStorage.todos.sort((a, b) => sortByNumber(a, b, 'id'));
     }
-    return this.todoStorage.todos.sort((a, b) => sortByDesc(a, b, property));
   }
 }
-
-export const todoService = new TodoService();

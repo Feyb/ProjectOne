@@ -1,8 +1,8 @@
 .dark-theme {
-  transition: all 0.2s cubic-bezier(0, 1.12, .87, .94);
-  --text-color: #fffffe;
+  --text-color: #ffffff;
   --accent-color: #06518e;
   --accent-bg-color: #444746;
-  --accent-primary-color: #06518e;
+  --accent-secondary-color: #034c88;
   --bg-color: #090d11;
+  --box-shadow: #44474680;
 }

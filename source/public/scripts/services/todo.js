@@ -9,5 +9,3 @@ export default class Todo {
     this.finished = finished;
   }
 }
-
-// #id didn't work with getters and setters. why?

@@ -7,21 +7,38 @@
   --accent-secondary-color: #034c88;
   --accent-bg-color: #f3f6fc;
   --bg-color: #ffffff;
+  --box-shadow: #00000020;
+  --button-color: #ffffff;
 }
 
-* {
+*:not(dialog) {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
 }
 
 body {
-  font-family: "Rubik", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-color);
   background-color: var(--bg-color);
 }
 
+h1 {
+  margin-bottom: 16px;
+}
+
 main {
   padding: 16px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-color);
+  padding: 24px;
 }
 
 nav {
@@ -44,6 +61,49 @@ form {
   gap: 16px;
 }
 
+
+textarea,
+select,
+input {
+  background-color: var(--accent-bg-color);
+}
+
+textarea,
+select,
+input {
+  border: none;
+  border-radius: 8px;
+  height: var(--elements-height);
+  padding: 4px 16px;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+textarea {
+  height: 150px;
+  padding: 16px;
+}
+
+button {
+  background-color: var(--accent-color);
+  height: var(--elements-height);
+  border: none;
+  border-radius: var(--border-radius-medium);
+  padding: 4px 16px;
+  color: var(--button-color);
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: var(--accent-secondary-color);
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -54,46 +114,113 @@ form {
   justify-content: space-between;
 }
 
-.flex-basis-33 {
-  flex-basis: 33%;
+.stretch {
+  align-items: stretch;
+  align-items: stretch;
+  width: 100%;
 }
 
 .wrap {
   flex-wrap: wrap
 }
 
-textarea,
-select,
-input {
-  background-color: var(--accent-bg-color);
-  font-size: 1.1rem;
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+}
+
+.finished:not(button) {
+  text-decoration: line-through;
+}
+
+dialog {
+  border: none;
+  border-radius: var(--border-radius-big);
+  box-shadow: 0px 0px 143px 59px rgba(0, 0, 0, 0.63);
+  padding: 1.6rem;
+  max-width: 400px;
+  background-color: var(--bg-color);
   color: var(--text-color);
 }
 
-textarea,
-select,
-input {
-  border: none;
-  border-radius: 8px;
-  height: var(--elements-height);
-  padding: 4px 16px;
+@media (min-width: 320px) and (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
-textarea {
-  height: 150px;
-  padding: 16px;
+@media (min-width: 601px) and (max-width: 1280px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-button {
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-  height: var(--elements-height);
-  border: none;
+.card {
   border-radius: var(--border-radius-medium);
-  padding: 4px 16px;
+  padding: 1rem;
+  background-color: var(--accent-bg-color);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 8px 8px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "title prio"
+    "desc desc"
+    "created created-value"
+    "due due-value"
+    "finished cbx"
+    "buttons buttons";
 }
 
-button:hover {
-  background-color: var(--accent-secondary-color);
-  color: var(--bg-color);
+.card:hover {
+  box-shadow: 0 0 0.5rem var(--box-shadow);
+}
+
+.title {
+  grid-area: title;
+  justify-self: stretch;
+}
+
+.prio {
+  grid-area: prio;
+  justify-self: end;
+}
+
+.desc {
+  grid-area: desc;
+  justify-self: stretch;
+}
+
+.created {
+  grid-area: created;
+}
+
+.created-value {
+  grid-area: created-value;
+}
+
+.due {
+  grid-area: due;
+}
+
+.due-value {
+  grid-area: due-value;
+}
+
+.cbx {
+  grid-area: finished;
+}
+
+.cbx-value {
+  grid-area: cbx;
+}
+
+.buttons {
+  grid-area: buttons;
+  justify-self: stretch;
 }
