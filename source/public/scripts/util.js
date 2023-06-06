@@ -45,3 +45,18 @@ export function sortByDate(a, b, prop) {
 export function sortByNumber(a, b, prop) {
   return a[prop] - b[prop]
 }
+
+
+export function headerShadow() {
+  const header = document.querySelector("header");
+  // create empty div an place before header
+  const toggleDiv = document.createElement("div");
+  header.before(toggleDiv);
+
+  // as soon as the header element moves over the div a class gets set
+  const intersection$ = new IntersectionObserver(([entry]) => {
+    header.classList.toggle("active", !entry.isIntersecting);
+  });
+
+  intersection$.observe(toggleDiv);
+}
