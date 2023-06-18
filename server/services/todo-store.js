@@ -23,4 +23,4 @@ export class TodoStore {
   }
 }
 
-export const orderStore = new TodoStore();
+export const todoStore = new TodoStore();

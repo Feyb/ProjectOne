@@ -3,14 +3,14 @@ import express from 'express';
 import { expressjwt } from 'express-jwt';
 import path, { dirname } from 'path';
 import { fileURLToPath } from "url";
-import { indexRoutes } from './routes/index-routes.js';
-import { orderRoutes } from './routes/order-routes.js';
+import { indexRoutes } from './server/routes/index-routes.js';
+import { orderRoutes } from './server/routes/todo-routes.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const app = express();
 
-app.use(express.static(path.resolve('public/html')));
+app.use(express.static(path.resolve('source')));
 app.use(express.static(path.resolve('public')));
 
 app.use(bodyParser.json());
