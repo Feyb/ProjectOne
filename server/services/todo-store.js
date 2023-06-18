@@ -18,8 +18,24 @@ export class TodoStore {
     return this.db.findOne({ _id: id, orderedBy: currentUser });
   }
 
-  async all(currentUser) {
-    return this.db.find({ orderedBy: currentUser }).sort({ orderDate: -1 }).exec();
+  async all(sortBy) {
+    return this.db.find({ orderedBy: _id }).sort(this.sortBy(sortBy)).exec();
+  }
+
+  sortBy(property) {
+    switch (property) {
+      case 'title':
+      case 'description':
+        return this.todoStorage.todos.sort((a, b) => sortByString(a, b, property));
+      case 'dueDate':
+      case 'createdAt':
+        return this.todoStorage.todos.sort((a, b) => sortByDate(a, b, property));
+      case 'priority':
+      case 'finished':
+        return this.todoStorage.todos.sort((a, b) => sortByNumber(a, b, property));
+      default:
+        return this.todoStorage.todos.sort((a, b) => sortByNumber(a, b, 'id'));
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import TodoService from "../services/todo-service.js";
+import { todoService } from "../services/todo-service.js";
 
 export default class TodoController {
   dialogId = "dialog";
@@ -10,7 +10,6 @@ export default class TodoController {
   sortId = "sort-select";
 
   constructor() {
-    this.todoService = new TodoService();
     this.todoContinerElement = document.querySelector(`#${this.containerId}`);
     this.templateElement = document.querySelector(`#${this.templateId}`);
     this.dialogElement = document.querySelector(`#${this.dialogId}`);
@@ -20,7 +19,7 @@ export default class TodoController {
   }
 
   addEventListeners() {
-    document.addEventListener("click", event => {
+    document.addEventListener("click", async event => {
       if (event.target.dataset.action === 'edit') {
         this.editListener(event.target.dataset.id);
       }
@@ -31,25 +30,25 @@ export default class TodoController {
         this.closeDialog();
       }
       if (event.target.dataset.action === 'delete') {
-        this.delete(event.target.dataset.id);
+        await this.delete(event.target.dataset.id);
       }
       if (event.target.dataset.action === 'finished') {
-        this.toggleFinished(event.target.dataset.id);
+        await this.toggleFinished(event.target.dataset.id);
       }
       if (event.target.dataset.action === 'deleteAll') {
-        this.deleteAll();
+        await this.deleteAll();
       }
       if (event.target.dataset.action === 'sortDirection') {
         this.sortByDirection = event.target.value
       }
     });
 
-    document.addEventListener("submit", (event) => {
+    document.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (this.formData.id.value) {
-        this.editTodo(this.formData.id.value);
+        await this.editTodo(this.formData.id.value);
       } else {
-        this.addTodo();
+        await this.addTodo();
       }
 
       this.closeDialog();
@@ -59,13 +58,13 @@ export default class TodoController {
     this.sortElement.addEventListener("change", event => this.sortBy(event.target.value));
   }
 
-  deleteAll() {
-    this.todoService.deleteAll();
+  async deleteAll() {
+    await todoService.deleteAll();
     this.renderTodos();
   }
 
-  renderTodos() {
-    const todos = this.todoService.getTodos();
+  async renderTodos() {
+    const todos = await todoService.getTodos('');
     const source = this.templateElement.innerHTML;
     const template = Handlebars.compile(source);
     this.todoContinerElement.innerHTML = template({ todos });
@@ -82,8 +81,8 @@ export default class TodoController {
     this.formData.reset();
   }
 
-  editListener(id) {
-    const todo = this.todoService.getTodoById(parseInt(id, 10));
+  async editListener(id) {
+    const todo = await todoService.getTodoById(parseInt(id, 10));
 
     this.formData.id.value = todo.id;
     this.formData.title.value = todo.title;
@@ -95,27 +94,26 @@ export default class TodoController {
     this.showDialog();
   }
 
-  delete(id) {
-    this.todoService.deleteTodoById(id);
+  async delete(id) {
+    await todoService.deleteTodoById(id);
     this.renderTodos();
   }
 
-  addTodo() {
+  async addTodo() {
     const newTodo = {
       title: this.formData.title.value,
       description: this.formData.description.value,
       dueDate: this.formData.dueDate.value,
-      createdAt: new Date(Date.now()),
       priority: this.formData.priority.value,
       finished: this.formData.finished.value
-    }
-    this.todoService.addTodo(newTodo);
+    };
+    await todoService.addTodo(newTodo);
   }
 
   editTodo(id) {
     const editTodo = this.todoService.getTodoById(parseInt(id, 10));
 
-    editTodo.title = this.formData.title.value
+    editTodo.title = this.formData.title.value;
     editTodo.description = this.formData.description.value;
     editTodo.dueDate = this.formData.dueDate.value;
     editTodo.priority = this.formData.priority.value;
@@ -124,17 +122,17 @@ export default class TodoController {
     this.todoService.updateTodoById(id, editTodo);
   }
 
-  toggleFinished(id) {
-    const editTodo = this.todoService.getTodoById(parseInt(id, 10));
+  async toggleFinished(id) {
+    const editTodo = await todoService.getTodoById(parseInt(id, 10));
 
     editTodo.finished = !editTodo.finished;
 
-    this.todoService.updateTodoById(id, editTodo);
+    await todoService.updateTodoById(id, editTodo);
     this.renderTodos();
   }
 
-  sortBy(value) {
-    this.todos = this.todoService.sortBy(value, 'asc');
+  async sortBy(value) {
+    this.todos = await todoService.sortBy(value, 'asc');
     this.renderTodos();
   }
 

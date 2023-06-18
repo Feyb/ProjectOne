@@ -8,4 +8,4 @@ router.post("/", todosController.addTodo);
 router.get("/:id/", todosController.editTodo); // TODO Edit
 router.delete("/:id/", todosController.deleteTodo);
 
-export const orderRoutes = router;
+export const todoRoutes = router;

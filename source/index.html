@@ -10,7 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"
           integrity="sha256-/PJBs6QWvXijOFIX04kZpLb6ZtSQckdOIavLWKKOgXU=" crossorigin="anonymous" defer></script>
 
-  <script src="scripts/app.js" type="module"></script>
+  <script src="./app.js" type="module"></script>
 
   <!-- TODO .hbs file -->
   <script id="todo-template" type="text/x-handlebars-template">
@@ -41,6 +41,7 @@
   <header>
     <h1>TODO</h1>
     <nav>
+      <button id="login">Login</button>
       <button id="add-todo" data-action="add">Add Todo</button>
       <button id="theme-toggle">Toggle Theme</button>
       <button id="delete-all" data-action="deleteAll">Delete Todos</button>
