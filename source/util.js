@@ -21,11 +21,6 @@ export function dateNow() {
   document.querySelector("#todaysDate").innerHTML = todayStr;
 }
 
-// function registerEvent(id, event, func) {
-//   const element = document.querySelector(`#${id}`);
-//   element.addEventListener(event, func);
-// }
-
 export function sortByString(a, b, prop) {
   const upperA = a[prop].toUpperCase();
   const upperB = b[prop].toUpperCase();
