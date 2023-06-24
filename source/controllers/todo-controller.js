@@ -2,20 +2,20 @@ import { todoService } from "../services/todo-service.js";
 
 export default class TodoController {
   dialogId = "dialog";
-
   containerId = "todo-container";
-
   templateId = "todo-template";
-
   sortId = "sort-select";
+  userNameId = "user-name"
 
   constructor() {
     this.todoContinerElement = document.querySelector(`#${this.containerId}`);
     this.templateElement = document.querySelector(`#${this.templateId}`);
     this.dialogElement = document.querySelector(`#${this.dialogId}`);
     this.sortElement = document.querySelector(`#${this.sortId}`);
+    this.loggedInUser = document.querySelector(`#${this.userNameId}`);
     this.formData = document.forms.form;
     this.sortByDirection = null;
+    this.sortBy = '_id';
   }
 
   addEventListeners() {
@@ -38,9 +38,6 @@ export default class TodoController {
       if (event.target.dataset.action === 'deleteAll') {
         await this.deleteAll();
       }
-      if (event.target.dataset.action === 'sortDirection') {
-        this.sortByDirection = event.target.value
-      }
     });
 
     document.addEventListener("submit", async (event) => {
@@ -55,7 +52,11 @@ export default class TodoController {
       this.renderTodos();
     });
 
-    this.sortElement.addEventListener("change", event => this.sortBy(event.target.value));
+    document.addEventListener("change", async (event) => {
+      if (event.target.dataset.action === 'sortBy') {
+        this.getTodosSortBy(event.target.value)
+      }
+    });
   }
 
   async deleteAll() {
@@ -64,7 +65,7 @@ export default class TodoController {
   }
 
   async renderTodos() {
-    const todos = await todoService.getTodos('');
+    const todos = await todoService.getTodos(this.sortBy);
     const source = this.templateElement.innerHTML;
     const template = Handlebars.compile(source);
     this.todoContinerElement.innerHTML = template({ todos });
@@ -82,9 +83,9 @@ export default class TodoController {
   }
 
   async editListener(id) {
-    const todo = await todoService.getTodoById(parseInt(id, 10));
+    const todo = await todoService.getTodoById(id);
 
-    this.formData.id.value = todo.id;
+    this.formData.id.value = id;
     this.formData.title.value = todo.title;
     this.formData.description.value = todo.description;
     this.formData.dueDate.value = todo.dueDate;
@@ -105,25 +106,26 @@ export default class TodoController {
       description: this.formData.description.value,
       dueDate: this.formData.dueDate.value,
       priority: this.formData.priority.value,
-      finished: this.formData.finished.value
+      finished: this.formData.finished.value,
+      userName: this.loggedInUser
     };
     await todoService.addTodo(newTodo);
   }
 
-  editTodo(id) {
-    const editTodo = this.todoService.getTodoById(parseInt(id, 10));
+  async editTodo(id) {
+    const todo = {
+      title: this.formData.title.value,
+      description: this.formData.description.value,
+      dueDate: this.formData.dueDate.value,
+      priority: this.formData.priority.value,
+      finished: this.formData.finished.value
+    }
 
-    editTodo.title = this.formData.title.value;
-    editTodo.description = this.formData.description.value;
-    editTodo.dueDate = this.formData.dueDate.value;
-    editTodo.priority = this.formData.priority.value;
-    editTodo.finished = this.formData.finished.value;
-
-    this.todoService.updateTodoById(id, editTodo);
+    await todoService.updateTodoById(id, todo);
   }
 
   async toggleFinished(id) {
-    const editTodo = await todoService.getTodoById(parseInt(id, 10));
+    const editTodo = await todoService.getTodoById(id);
 
     editTodo.finished = !editTodo.finished;
 
@@ -131,8 +133,8 @@ export default class TodoController {
     this.renderTodos();
   }
 
-  async sortBy(value) {
-    this.todos = await todoService.sortBy(value, 'asc');
+  getTodosSortBy(value) {
+    this.sortBy = value;
     this.renderTodos();
   }
 

@@ -45,8 +45,10 @@ header.active {
 }
 
 footer {
-  position: sticky;
+  position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: var(--bg-color);
   padding: 24px;
 }
@@ -148,7 +150,7 @@ button:hover {
   grid-row-gap: 16px;
 }
 
-.finished:not(button) {
+.finished>span:not(button) {
   text-decoration: line-through;
 }
 
@@ -238,4 +240,15 @@ dialog {
 .buttons {
   grid-area: buttons;
   justify-self: stretch;
+}
+
+.buttons button:not(:last-child) {
+  margin-right: 8px;
+}
+
+
+.toggle {
+  position: absolute;
+  top: 24px;
+  right: 24px;
 }

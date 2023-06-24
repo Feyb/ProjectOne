@@ -1,8 +1,10 @@
 import Datastore from 'nedb-promises';
+import { User } from '../models/user.js';
+import { CryptoUtil } from '../utils/crypto-util.js';
 
 export class UserStore {
   constructor(db) {
-    const options = process.env.DB_TYPE === "FILE" ? { filename: '../data/user.db', autoload: true } : {}
+    const options = process.env.DB_TYPE === "FILE" ? { filename: './data/user.db', autoload: true } : {}
     this.db = db || new Datastore(options);
   }
 

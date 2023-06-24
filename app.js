@@ -11,9 +11,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const app = express();
 
+app.use(cors());
 app.use(express.static(path.resolve('source')));
 app.use(express.static(path.resolve('server')));
-app.use(cors());
 
 app.use(bodyParser.json());
 const jwtSecret = 'dXNlcm5hbWU9c3ViamVjdCJ9.eyJleHAiOjE2MzAwMjI4OTMsImlhdCI6MTYzMDE5OTI5MywiaXNzIjoiaHR0cHM6Ly9leGFtcGxlLmNvbSIsImp0aSI6IjEyMzQ1Njc4OTAifQ.pn53rsP7LlLbfx1ytrtjqjD5ugcxpO44Yh0VW0FJw8k';
@@ -27,7 +27,7 @@ app.get("/", function (req, res) {
 });
 app.use(expressjwt(app.get("jwt-validate")).unless({ path: [/\/login*/] })); //after this middleware a token is required!
 app.use((req, res, next) => {
-  console.log(req.auth || "no user");
+  // console.log(req.auth || "no user");
   next();
 });
 app.use("/", indexRoutes);

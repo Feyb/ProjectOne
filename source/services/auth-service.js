@@ -1,4 +1,4 @@
-import { httpService } from '../http-service.js';
+import { httpService } from './http-service.js';
 
 class AuthService {
   async login(userName, pwd) {

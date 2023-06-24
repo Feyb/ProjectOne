@@ -1,13 +1,19 @@
+import LoginController from './controllers/login-controller.js';
+import ThemeController from "./controllers/theme-controller.js";
 import TodoController from "./controllers/todo-controller.js";
-import { dateNow, headerShadow, initTheme, registerThemeToggle } from './util.js';
+import { dateNow } from './services/util.js';
 
-initTheme();
-registerThemeToggle("theme-toggle");
+const login = new LoginController();
+login.renderMenu();
+login.addEventListeners();
 
 const todo = new TodoController();
 todo.renderTodos();
 todo.addEventListeners();
 
+const theme = new ThemeController();
+theme.registerThemeToggle();
+theme.headerShadow();
+
 dateNow();
-headerShadow();
 

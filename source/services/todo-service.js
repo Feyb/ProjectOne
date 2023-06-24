@@ -5,8 +5,12 @@ class TodoService {
     return httpService.ajax("POST", "/todos/", todo);
   }
 
+  async updateTodoById(id, todo) {
+    return httpService.ajax("PUT", `/todos/${id}`, todo);
+  }
+
   async getTodos(sortBy) {
-    return httpService.ajax("GET", `/todos?${sortBy}`, undefined);
+    return httpService.ajax("GET", `/todos?sortBy=${sortBy}`, undefined);
   }
 
   async getTodoById(id) {

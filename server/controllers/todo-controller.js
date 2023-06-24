@@ -4,16 +4,23 @@ import { SecurityUtil } from '../utils/security.js';
 export class TodosController {
 
   getTodos = async (req, res) => {
-    res.json((await todoStore.all(SecurityUtil.currentUser(req)) || []))
+    res.json((await todoStore.all(req.query.sortBy, SecurityUtil.currentUser(req)) || []))
   };
 
   addTodo = async (req, res) => {
-    res.json(await todoStore.add(req.body.name, SecurityUtil.currentUser(req)));
+    const todo = req.body
+    todo.userName = SecurityUtil.currentUser(req);
+    res.json(await todoStore.add(todo));
   };
 
-  // TODO edit
-  editTodo = async (req, res) => {
-    res.json(await todoStore.get(req.params.id, SecurityUtil.currentUser(req)));
+  getTodoById = async (req, res) => {
+    const r = await todoStore.get(req.params.id);
+    console.log(r)
+    res.json(r);
+  };
+
+  updateTodo = async (req, res) => {
+    res.json(await todoStore.update(req.params.id, req.body));
   };
 
   deleteTodo = async (req, res) => {
@@ -21,4 +28,4 @@ export class TodosController {
   };
 }
 
-export const todosController = new TodosController();
+export const todoController = new TodosController();
