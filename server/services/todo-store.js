@@ -1,6 +1,4 @@
 import Datastore from 'nedb-promises';
-import { sortByDate, sortByNumber, sortByString } from './util.js';
-
 export class TodoStore {
   constructor(db) {
     const options = process.env.DB_TYPE === "FILE" ? { filename: './data/todos.db', autoload: true } : {}
@@ -9,41 +7,38 @@ export class TodoStore {
 
   async add(todo) {
     await this.db.insert(todo);
+    return this.get(id);
   }
 
   async delete(id) {
     await this.db.update({ _id: id }, { $set: { "state": "DELETED" } });
+    return this.get(id);
   }
 
   async update(id, todo) {
-    return await this.db.update({ _id: id }, todo);
+    await this.db.update({ _id: id }, todo);
+    return this.get(id);
   }
 
   async get(id) {
-    const todo = await this.db.findOne({ _id: id });
-    return todo;
+    return this.db.findOne({ _id: id });
   }
 
-  async all(sortBy, currentUser) {
-    return this.db.find() // {{userName: currentUser}} in find not working
-      .sort((a, b) => sortBy(a, b, sortBy))
-      .exec();
-  }
+  async all(sortBy, sortByDirection, filter, currentUser) {
+    if (!(sortBy && Boolean(sortByDirection))) { sortBy = '_id'; sortByDirection = 'true' }
+    const sortByObj = {};
+    sortByObj[sortBy] = sortByDirection === 'true' ? 1 : -1;
 
-  sortBy(a, b, property) {
-    switch (property) {
-      case 'title':
-      case 'description':
-        return sortByString(a, b, property);
-      case 'dueDate':
-      case 'createdAt':
-        return sortByDate(a, b, property);
-      case 'priority':
-      case 'finished':
-        return sortByNumber(a, b, property);
-      default:
-        return sortByString(a, b, '_id');
+
+    if (filter === 'true') {
+      return this.db.find({ userName: currentUser, finished: false })
+        .sort(sortByObj)
+        .exec();
     }
+
+    return this.db.find({ userName: currentUser, })
+      .sort(sortByObj)
+      .exec();
   }
 }
 

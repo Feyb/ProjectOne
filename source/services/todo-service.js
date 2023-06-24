@@ -9,8 +9,8 @@ class TodoService {
     return httpService.ajax("PUT", `/todos/${id}`, todo);
   }
 
-  async getTodos(sortBy) {
-    return httpService.ajax("GET", `/todos?sortBy=${sortBy}`, undefined);
+  async getTodos(sortBy, sortByDirection, filter) {
+    return httpService.ajax("GET", `/todos?sortBy=${sortBy}&sortByDirection=${sortByDirection}&filter=${filter}`, undefined);
   }
 
   async getTodoById(id) {

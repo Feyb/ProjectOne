@@ -14,33 +14,35 @@
 
   <!-- TODO .hbs file -->
   <script id="todo-template" type="text/x-handlebars-template">
+
   		<div id="todos" class="cards-grid">
-  			{{#each todos}}
-          <div class="card {{#if finished}}finished{{/if}}">
-            <span class="title"><h3>{{title}}</h3></span>
-            <span class="prio">{{priority}}</span>
-            <span class="desc"> {{description}} </span>
-            <span class="created"> Created at: </span>
-            <span class="created-value"> {{createdAt}} </span>
-            <span class="due"> Due to: </span>
-            <span class="due-value"> {{dueDate}} </span>
-            <span class="cbx">Finished: </span>
-            <div class="cbx-value"> <input data-id="{{_id}}" data-action="finished" type="checkbox" {{#if finished}}checked{{/if}}> </div>
-            <div class="buttons">
-              <button data-id="{{_id}}" data-action="edit">Edit</button>
-              <button data-id="{{_id}}" data-action="delete">Delete</button>
+          {{#each todos}}
+            <div class="card {{#if finished}}finished{{/if}}">
+              <span class="title"><h3>{{title}}</h3></span>
+              <span class="prio">{{#times priority}}!{{/times}}</span>
+              <span class="desc"> {{description}} </span>
+              <span class="created"> Created at: </span>
+              <span class="created-value"> {{createdAt}} </span>
+              <span class="due"> Due to: </span>
+              <span class="due-value"> {{dueDate}} </span>
+              <span class="cbx">Finished: </span>
+              <div class="cbx-value"> <input data-id="{{_id}}" data-action="finished" type="checkbox" {{#if finished}}checked{{/if}}> </div>
+              <div class="buttons">
+                <button data-id="{{_id}}" data-userName="{{userName}}" data-action="edit">Edit</button>
+                <button data-id="{{_id}}" data-action="delete">Delete</button>
+              </div>
             </div>
-          </div>
-  			{{/each}}
+          {{else}}
+            No items found.
+          {{/each}}
   		</div>
   	</script>
 
   <script id="menu-template" type="text/x-handlebars-template">
-
       {{#if loggedIn}}
         <button id="logout" data-action="logout">Logout</button>
         <button id="add-todo" data-action="add">Add Todo</button>
-        <button id="delete-all" data-action="deleteAll">Delete Todos</button>
+        <button id="filter" data-action="filter">Hide finished</button>
         <select id="sort-select" data-action="sortBy">
           <option value="">sort by</option>
           <option value="title">Title</option>
@@ -50,6 +52,9 @@
           <option value="priority">Priority</option>
           <option value="finished">Finished</option>
         </select>
+        <button id="sort-direction" data-action="sortByDirection" class="up-down">
+          &#8597;
+        </button>
         {{else}}
           <button id="login" data-action="login">Login</button>
         {{/if}}
@@ -69,7 +74,7 @@
 
     <dialog id="dialog">
       <form class="flex-col" id="todo-form" name="form" method="dialog">
-        <h2 id="dialog-heading">Edit Todo</h2> <!-- TODO: set title based on add or create -->
+        <h2 id="dialog-heading">Add/Edit Todo</h2>
         <input id="id" name="id" type="text" hidden>
         <div class="flex-col">
           <label for="title">Title:</label>
@@ -86,11 +91,11 @@
         <div class="flex-col">
           <label for="priority">Priority:</label>
           <select name="priority" id="priority">
-            <option value="1">Critical</option>
-            <option value="2">High</option>
+            <option value="5">Critical</option>
+            <option value="4">High</option>
             <option value="3">Normal</option>
-            <option value="4">Low</option>
-            <option value="5">Unimportant</option>
+            <option value="2">Low</option>
+            <option value="1">Unimportant</option>
           </select>
         </div>
         <div class="flex-col">
@@ -98,15 +103,12 @@
           <input id="finished" name="finished" type="checkbox">
         </div>
         <div class="flex-col">
-          <button id="save-todo" data-action="save" type="submit">Save</button>
+          <button id="save-todo" data-action="save" type="submit" disabled>Save</button>
           <button id="close-dialog" data-action="close" type="button">Close</button>
         </div>
       </form>
     </dialog>
   </main>
-  <footer>
-    <span id="todaysDate"></span>
-  </footer>
 </body>
 
 </html>

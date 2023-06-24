@@ -44,15 +44,6 @@ header.active {
   transition-duration: 400ms;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--bg-color);
-  padding: 24px;
-}
-
 nav {
   font-size: 1.1rem;
   margin: 0;
@@ -246,9 +237,13 @@ dialog {
   margin-right: 8px;
 }
 
-
 .toggle {
   position: absolute;
   top: 24px;
   right: 24px;
+}
+
+.up-down {
+  font-weight: bolder;
+  font-size: 1.5em;
 }

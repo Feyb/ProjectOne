@@ -1,3 +1,4 @@
+import { httpService } from '../services/http-service.js';
 import { todoService } from "../services/todo-service.js";
 
 export default class TodoController {
@@ -5,7 +6,9 @@ export default class TodoController {
   containerId = "todo-container";
   templateId = "todo-template";
   sortId = "sort-select";
-  userNameId = "user-name"
+  sortByDirectionId = "sort-direction";
+  userNameId = "user-name";
+  filterId = "filter";
 
   constructor() {
     this.todoContinerElement = document.querySelector(`#${this.containerId}`);
@@ -13,9 +16,20 @@ export default class TodoController {
     this.dialogElement = document.querySelector(`#${this.dialogId}`);
     this.sortElement = document.querySelector(`#${this.sortId}`);
     this.loggedInUser = document.querySelector(`#${this.userNameId}`);
+    this.filterBtn = document.querySelector(`#${this.filterId}`);
+    this.sortByDirectionBtn = document.querySelector(`#${this.sortByDirectionId}`);
+    this.saveBtn = document.querySelector('#save-todo');
     this.formData = document.forms.form;
-    this.sortByDirection = null;
+    this.sortByDirection = true;
     this.sortBy = '_id';
+    this.filter = false;
+
+    Handlebars.registerHelper('times', function (n, block) {
+      var accum = '';
+      for (var i = 0; i < n; ++i)
+        accum += block.fn(i);
+      return accum;
+    });
   }
 
   addEventListeners() {
@@ -38,7 +52,19 @@ export default class TodoController {
       if (event.target.dataset.action === 'deleteAll') {
         await this.deleteAll();
       }
+      if (event.target.dataset.action === 'sortByDirection') {
+        this.changeSortByDirection();
+      }
+      if (event.target.dataset.action === 'filter') {
+        this.hideShowFinished();
+      }
+      if (event.target.dataset.action && event.target.dataset.action !== 'sortBy') {
+        this.renderTodos();
+      }
     });
+
+    this.formData.addEventListener('keyup', () => { this.validateForm() });
+    this.formData.addEventListener('change', () => { this.validateForm() });
 
     document.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -49,7 +75,6 @@ export default class TodoController {
       }
 
       this.closeDialog();
-      this.renderTodos();
     });
 
     document.addEventListener("change", async (event) => {
@@ -59,25 +84,48 @@ export default class TodoController {
     });
   }
 
+  hideShowFinished() {
+    this.filter = !this.filter;
+  }
+
+  changeSortByDirection() {
+    this.sortByDirectionBtn.classList.add(this.sortByDirection ? 'asc' : 'desc');
+    this.sortByDirection = !this.sortByDirection;
+  }
+
+  validateForm() {
+    let isValid = true;
+    // Iterate over the form elements and check their validity
+    for (let i = 0; i < form.elements.length; i++) {
+      if (!form.elements[i].checkValidity()) {
+        isValid = false;
+        break;
+      }
+    }
+    this.saveBtn.disabled = !isValid;
+  }
+
   async deleteAll() {
     await todoService.deleteAll();
-    this.renderTodos();
   }
 
   async renderTodos() {
-    const todos = await todoService.getTodos(this.sortBy);
+    const loggedIn = httpService.hasAuthToken();
+    let todos = [];
+    if (loggedIn) {
+      todos = await todoService.getTodos(this.sortBy, this.sortByDirection, this.filter);
+    }
+
     const source = this.templateElement.innerHTML;
     const template = Handlebars.compile(source);
     this.todoContinerElement.innerHTML = template({ todos });
   }
 
   showDialog() {
-    // this.dialog.attachShadow({ mode: 'open' });
     this.dialogElement.showModal();
   }
 
   closeDialog() {
-    // this.dialog.attachShadow({ mode: 'closed' });
     this.dialogElement.close();
     this.formData.reset();
   }
@@ -91,13 +139,13 @@ export default class TodoController {
     this.formData.dueDate.value = todo.dueDate;
     this.formData.priority.value = todo.priority;
     this.formData.finished.checked = todo.finished;
+    this.formData.userName = todo.userName;
 
     this.showDialog();
   }
 
   async delete(id) {
     await todoService.deleteTodoById(id);
-    this.renderTodos();
   }
 
   async addTodo() {
@@ -126,11 +174,9 @@ export default class TodoController {
 
   async toggleFinished(id) {
     const editTodo = await todoService.getTodoById(id);
-
     editTodo.finished = !editTodo.finished;
 
     await todoService.updateTodoById(id, editTodo);
-    this.renderTodos();
   }
 
   getTodosSortBy(value) {

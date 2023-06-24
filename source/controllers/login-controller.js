@@ -1,6 +1,5 @@
 import { authService } from '../services/auth-service.js';
 
-
 export default class LoginController {
   containerId = "menu-container";
   templateId = "menu-template";
@@ -16,7 +15,7 @@ export default class LoginController {
   }
 
   async renderMenu() {
-    const loggedIn = await authService.isLoggedIn();
+    const loggedIn = authService.isLoggedIn();
     const source = this.templateElement.innerHTML;
     const template = Handlebars.compile(source);
     this.menuContinerElement.innerHTML = template({ loggedIn });
@@ -26,14 +25,10 @@ export default class LoginController {
     document.addEventListener("click", async event => {
       if (event.target.dataset.action === 'login') {
         await authService.login("fabio@feyb.ch", "123456");
-        // todo show logged in user
-
         await this.renderMenu();
       }
       if (event.target.dataset.action === 'logout') {
         await authService.logout();
-
-        // todo remove logged in user
         await this.renderMenu();
       }
     });

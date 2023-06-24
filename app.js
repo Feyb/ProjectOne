@@ -27,6 +27,7 @@ app.get("/", function (req, res) {
 });
 app.use(expressjwt(app.get("jwt-validate")).unless({ path: [/\/login*/] })); //after this middleware a token is required!
 app.use((req, res, next) => {
+  req.auth;
   // console.log(req.auth || "no user");
   next();
 });
@@ -38,5 +39,6 @@ app.use(function (err, req, res, next) {
     res.status(401).send('No token / Invalid token provided');
   } else {
     next(err);
+    res.send([]);
   }
 });

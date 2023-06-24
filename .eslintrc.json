@@ -22,5 +22,8 @@
   },
   "globals": {
     "Handlebars": "readonly"
-  }
+  },
+  "plugins": [
+    "html"
+  ]
 }
