@@ -44,13 +44,11 @@ export default class TodoController {
         this.closeDialog();
       }
       if (event.target.dataset.action === 'delete') {
+        console.log('hii')
         await this.delete(event.target.dataset.id);
       }
       if (event.target.dataset.action === 'finished') {
         await this.toggleFinished(event.target.dataset.id);
-      }
-      if (event.target.dataset.action === 'deleteAll') {
-        await this.deleteAll();
       }
       if (event.target.dataset.action === 'sortByDirection') {
         this.changeSortByDirection();
@@ -154,9 +152,12 @@ export default class TodoController {
       description: this.formData.description.value,
       dueDate: this.formData.dueDate.value,
       priority: this.formData.priority.value,
-      finished: this.formData.finished.value,
+      finished: this.formData.finished.checked,
       userName: this.loggedInUser
     };
+
+    console.log(this.formData.finished.checked);
+
     await todoService.addTodo(newTodo);
   }
 

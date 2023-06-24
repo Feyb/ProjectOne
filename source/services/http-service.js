@@ -9,7 +9,6 @@ class HttpService {
     if (valueStorage.getItem(tokenKey)) {
       fetchHeaders.append("authorization", `Bearer ${valueStorage.getItem(tokenKey)}`)
     }
-    if (!this.hasAuthToken) { return }
 
     return fetch(url, {
       method,

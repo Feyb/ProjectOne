@@ -6,13 +6,11 @@ export class TodoStore {
   }
 
   async add(todo) {
-    await this.db.insert(todo);
-    return this.get(id);
+    return this.db.insert(todo);
   }
 
   async delete(id) {
-    await this.db.update({ _id: id }, { $set: { "state": "DELETED" } });
-    return this.get(id);
+    return this.db.update({ _id: id }, { $set: { "state": "DELETED" } });
   }
 
   async update(id, todo) {
@@ -36,7 +34,7 @@ export class TodoStore {
         .exec();
     }
 
-    return this.db.find({ userName: currentUser, })
+    return this.db.find({ userName: currentUser, state: { $ne: "DELETED" } })
       .sort(sortByObj)
       .exec();
   }

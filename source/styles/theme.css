@@ -9,6 +9,7 @@
   --bg-color: #ffffff;
   --box-shadow: #00000020;
   --button-color: #ffffff;
+  --bg-color-diabled: #44474650;
 }
 
 *:not(dialog) {
@@ -246,4 +247,8 @@ dialog {
 .up-down {
   font-weight: bolder;
   font-size: 1.5em;
+}
+
+button[disabled] {
+  background-color: var(--bg-color-diabled);
 }

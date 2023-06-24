@@ -1,5 +1,5 @@
 {"title":"Book flight tickets","description":"Search for and book flight tickets for the vacation.","dueDate":"2023-06-30","priority":"2","finished":false,"_id":"SqJWzKcFthAzDNui","userName":"fabio@feyb.ch"}
-{"title":"Pay utility bills","description":"Pay the electricity and water bills for this month.","dueDate":"2023-06-26","priority":"2","finished":false,"_id":"U6bRzMt3DkL7NfXq","userName":"fabio@feyb.ch","state":"DELETED"}
+{"title":"Pay utility bills","description":"Pay the electricity and water bills for this month.","dueDate":"2023-06-26","priority":"2","finished":false,"_id":"U6bRzMt3DkL7NfXq","userName":"fabio@feyb.ch"}
 {"title":"Optimize website performance","description":"Identify and implement optimizations to improve website performance and load times.","dueDate":"2023-07-18","priority":"2","finished":false,"_id":"a2L3tUiOp7WxJkXz","userName":"fabio@feyb.ch"}
 {"title":"Clean the house","description":"Dedicate time to clean and organize the entire house.","dueDate":"2023-06-30","priority":"3","finished":true,"_id":"b2X9jD5NqFcV1Shr","userName":"fabio@feyb.ch"}
 {"title":"Finish coding feature A","description":"Complete the coding tasks for feature A in the project.","dueDate":"2023-07-05","priority":"2","finished":false,"_id":"b3X2jD5NqFcV1Shr","userName":"fabio@feyb.ch"}
@@ -9,7 +9,7 @@
 {"title":"Perform database backup","description":"Take a backup of the project database for data protection and recovery purposes.","dueDate":"2023-07-20","priority":"2","finished":false,"_id":"f6W5rSkQj2MbZnHl","userName":"fabio@feyb.ch"}
 {"title":"Conduct team training session","description":"Organize and deliver a training session for the team members on a specific topic.","dueDate":"2023-07-19","priority":"1","finished":false,"_id":"i9Z8oXuMl3QpVrHb","userName":"fabio@feyb.ch"}
 {"title":"Schedule team meeting","description":"Coordinate and schedule a team meeting for project updates.","dueDate":"2023-07-02","priority":"1","finished":false,"_id":"k7T1skMnMG2rtUIk","userName":"fabio@feyb.ch"}
-{"title":"Update project documentation","description":"Review and update the project documentation with the latest changes.","dueDate":"2023-07-06","priority":"1","finished":false,"_id":"l4M9tC3NqYbF2Rqh","userName":"fabio@feyb.ch","state":"DELETED"}
+{"title":"Update project documentation","description":"Review and update the project documentation with the latest changes.","dueDate":"2023-07-06","priority":"1","finished":false,"_id":"l4M9tC3NqYbF2Rqh","userName":"fabio@feyb.ch"}
 {"title":"Renew gym membership","description":"Renew the gym membership for another month.","dueDate":"2023-06-29","priority":"3","finished":false,"_id":"m4t9bV1r6zFyReSk","userName":"fabio@feyb.ch"}
 {"title":"Review competitor analysis","description":"Analyze and evaluate competitor strategies and offerings to gain insights for the project.","dueDate":"2023-07-16","priority":"1","finished":false,"_id":"m5D2nHxRp1UwKqVb","userName":"fabio@feyb.ch"}
 {"title":"Collaborate with design team","description":"Work closely with the design team to finalize the user interface elements.","dueDate":"2023-07-17","priority":"3","finished":false,"_id":"o4R7lBjHxNwGsMqV","userName":"fabio@feyb.ch"}
@@ -25,17 +25,10 @@
 {"title":"Attend team meeting","description":"Join the team meeting to discuss the project progress.","dueDate":"2023-06-27","priority":"1","finished":true,"_id":"wFgY8sZMkXcuo5dN","userName":"fabio@feyb.ch"}
 {"title":"Review marketing strategy","description":"Evaluate and review the current marketing strategy for the product launch.","dueDate":"2023-07-10","priority":"1","finished":false,"_id":"x1W5mHcFthZyDNui","userName":"fabio@feyb.ch"}
 {"title":"Call John","description":"Follow up with John regarding the meeting next week.","dueDate":"2023-06-23","priority":"2","finished":false,"_id":"xk6pLzG1wbYf2Rqh","userName":"fabio@feyb.ch"}
-{"title":"Update website content","description":"Revise and update the content of the company's website.","dueDate":"2023-07-09","priority":"3","finished":true,"_id":"y2F1qStG6wVcXoLm","userName":"fabio@feyb.ch","state":"DELETED"}
+{"title":"Update website content","description":"Revise and update the content of the company's website.","dueDate":"2023-07-09","priority":"3","finished":true,"_id":"y2F1qStG6wVcXoLm","userName":"fabio@feyb.ch"}
 {"title":"Backup project files","description":"Create a backup of the project files for data protection.","dueDate":"2023-07-07","priority":"2","finished":false,"_id":"z4D8gOnJkctWiMtK","userName":"fabio@feyb.ch"}
 {"title":"Prepare presentation slides","description":"Create slides for the upcoming project presentation.","dueDate":"2023-06-28","priority":"1","finished":false,"_id":"zHt2C5JeF6Tk4h7s","userName":"fabio@feyb.ch"}
-{"title":"fffff","description":"asdf","dueDate":"2023-06-08","priority":"5","finished":"on","userName":"fabio@feyb.ch","_id":"1lnRYMzBFGn0fapk"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"SD6N3BJVaymamOEZ"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"9Ofw14EEXRJQGs2R"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"DUurL0lIoYgOdZnh"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"8nFDirME1dPv6pXy"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"G4PYTyAt2PtwBxYE"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"UBukUZHSfEISssJ6"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"zjFxrkSEO1U1wmzT"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"yeA4eM8WsHsCTp0f"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"PJwAWddUtPCSeFRb"}
-{"title":"asdf","description":"asdf","dueDate":"2023-06-15","priority":"3","finished":"on","userName":"fabio@feyb.ch","_id":"BnAqE6EGCvg2jwMh"}
+{"title":"hello add","description":"add works","dueDate":"2023-06-09","priority":"5","finished":false,"userName":"fabio@feyb.ch","_id":"ZRJebM5BYq9sNIA5"}
+{"title":"hello add","description":"add works","dueDate":"2023-06-09","priority":"5","finished":true,"userName":"fabio@feyb.ch","_id":"ZRJebM5BYq9sNIA5"}
+{"title":"hello add","description":"add works","dueDate":"2023-06-09","priority":"5","finished":false,"userName":"fabio@feyb.ch","_id":"ZRJebM5BYq9sNIA5"}
+{"title":"hello add","description":"add works, edit too","dueDate":"2023-06-09","priority":"5","finished":"on","userName":"fabio@feyb.ch","_id":"ZRJebM5BYq9sNIA5"}

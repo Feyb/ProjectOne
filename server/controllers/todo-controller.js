@@ -19,11 +19,13 @@ export class TodosController {
   };
 
   updateTodo = async (req, res) => {
+    const todo = req.body
+    todo.userName = SecurityUtil.currentUser(req);
     res.json(await todoStore.update(req.params.id, req.body));
   };
 
   deleteTodo = async (req, res) => {
-    res.json(await todoStore.delete(req.params.id, SecurityUtil.currentUser(req)));
+    res.json(await todoStore.delete(req.params.id));
   };
 }
 
