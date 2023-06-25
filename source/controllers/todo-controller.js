@@ -190,5 +190,4 @@ export default class TodoController {
     this.sortBy = value;
     this.renderTodos();
   }
-
 }
