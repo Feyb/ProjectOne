@@ -23,16 +23,10 @@ export default class TodoController {
     this.sortByDirection = true;
     this.sortBy = '_id';
     this.filter = false;
-
-    Handlebars.registerHelper('times', function (n, block) {
-      var accum = '';
-      for (var i = 0; i < n; ++i)
-        accum += block.fn(i);
-      return accum;
-    });
   }
 
   addEventListeners() {
+    // all click actions
     document.addEventListener("click", async event => {
       if (event.target.dataset.action === 'edit') {
         this.editListener(event.target.dataset.id);
@@ -61,9 +55,11 @@ export default class TodoController {
       }
     });
 
+    // form validation
     this.formData.addEventListener('keyup', () => { this.validateForm() });
     this.formData.addEventListener('change', () => { this.validateForm() });
 
+    // submit form
     document.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (this.formData.id.value) {
@@ -75,10 +71,19 @@ export default class TodoController {
       this.closeDialog();
     });
 
+    //sort
     document.addEventListener("change", async (event) => {
       if (event.target.dataset.action === 'sortBy') {
         this.getTodosSortBy(event.target.value)
       }
+    });
+
+    // handlebars
+    Handlebars.registerHelper('times', function (n, block) {
+      var accum = '';
+      for (var i = 0; i < n; ++i)
+        accum += block.fn(i);
+      return accum;
     });
   }
 
@@ -87,7 +92,6 @@ export default class TodoController {
   }
 
   changeSortByDirection() {
-    this.sortByDirectionBtn.classList.add(this.sortByDirection ? 'asc' : 'desc');
     this.sortByDirection = !this.sortByDirection;
   }
 
@@ -138,6 +142,8 @@ export default class TodoController {
     this.formData.priority.value = todo.priority;
     this.formData.finished.checked = todo.finished;
     this.formData.userName = todo.userName;
+
+    this.validateForm();
 
     this.showDialog();
   }
