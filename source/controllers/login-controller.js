@@ -25,7 +25,7 @@ export default class LoginController {
     document.addEventListener("click", async event => {
       if (event.target.dataset.action === 'login') {
         await authService.login("fabio@feyb.ch", "123456");
-        await this.renderMenu();
+        location.reload();
       }
       if (event.target.dataset.action === 'logout') {
         await authService.logout();

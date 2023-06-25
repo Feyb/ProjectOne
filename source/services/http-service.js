@@ -24,7 +24,7 @@ class HttpService {
     return Boolean(valueStorage.getItem(tokenKey))
   }
 
-  removeAuthToken(token) {
+  removeAuthToken() {
     valueStorage.setItem(tokenKey, undefined);
   }
 }

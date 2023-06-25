@@ -13,6 +13,7 @@ export default class ThemeController {
       document.body.classList.toggle("dark-theme");
     });
   }
+  
   initTheme() {
     const isDarkMode = JSON.parse(localStorage.getItem("isDarkMode"));
     if (isDarkMode) {
